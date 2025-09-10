@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Invitación - Quinceañera</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#fff5f7; --card:#ffffff; --accent:#b83280; --muted:#6b6b6b;
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:Inter,system-ui,Arial;background:linear-gradient(180deg,var(--bg),#fff);display:flex;align-items:center;justify-content:center;min-height:100vh;padding:24px;animation:fadeIn 2s ease-in-out}
+    @keyframes fadeIn{0%{opacity:0}100%{opacity:1}}
+    .card{width:100%;max-width:900px;background:var(--card);border-radius:24px;box-shadow:0 15px 40px rgba(0,0,0,0.12);overflow:hidden;display:grid;grid-template-columns:1fr 380px;animation:slideUp 1.2s ease-out}
+    @media (max-width:820px){.card{grid-template-columns:1fr;}}
+    @keyframes slideUp{0%{transform:translateY(40px);opacity:0}100%{transform:translateY(0);opacity:1}}
+
+    .left{padding:40px}
+    .logo{display:flex;align-items:center;gap:14px}
+    .logo img{width:64px;height:64px;object-fit:cover;border-radius:14px}
+    h1{font-family:'Playfair Display',serif;font-size:40px;margin:20px 0 8px;color:#2b2b2b}
+    .subtitle{color:var(--muted);margin:0 0 20px;font-size:18px}
+    .details{display:flex;gap:12px;flex-wrap:wrap;margin:22px 0}
+    .pill{background:#fff0f5;border:1px solid rgba(184,50,128,0.2);padding:10px 16px;border-radius:14px;font-weight:600}
+
+    .gallery{display:flex;gap:12px;margin-top:14px}
+    .gallery img{width:100%;max-width:120px;height:120px;object-fit:cover;border-radius:12px;cursor:pointer;border:3px solid transparent;transition:.3s}
+    .gallery img:hover{transform:scale(1.05)}
+    .gallery img.selected{border-color:var(--accent)}
+
+    .cta{margin-top:26px;display:flex;gap:14px;align-items:center}
+    .btn{padding:14px 20px;border-radius:14px;border:0;font-weight:700;cursor:pointer;transition:.3s}
+    .btn:hover{transform:translateY(-2px);box-shadow:0 4px 12px rgba(0,0,0,0.12)}
+    .btn-accept{background:var(--accent);color:white}
+    .btn-decline{background:transparent;color:var(--accent);border:2px solid var(--accent)}
+
+    .right{background:linear-gradient(180deg,#fff0f6,#fff);padding:40px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center}
+    .hero{width:240px;height:240px;border-radius:50%;overflow:hidden;box-shadow:0 10px 28px rgba(184,50,128,0.25);margin-bottom:18px;animation:pulse 4s infinite alternate}
+    .hero img{width:100%;height:100%;object-fit:cover}
+    @keyframes pulse{0%{transform:scale(1)}100%{transform:scale(1.05)}}
+
+    .rsvp{font-weight:700;margin-top:12px;font-size:18px;color:#444}
+    .note{color:var(--muted);margin-top:10px;font-size:15px;line-height:1.4}
+
+    footer{padding:20px;text-align:center;color:var(--muted);font-size:13px}
+
+    .form-row{display:flex;gap:10px;margin-top:18px}
+    .input{flex:1;padding:12px;border-radius:12px;border:1px solid #eee;font-size:14px}
+    .small-btn{padding:12px 14px;border-radius:12px;border:0;background:var(--accent);color:#fff;font-weight:700;cursor:pointer;transition:.3s}
+    .small-btn:hover{opacity:0.85}
+
+    /* Música flotante */
+    .music-player{position:fixed;bottom:20px;right:20px;background:white;border-radius:50%;box-shadow:0 6px 20px rgba(0,0,0,0.15);width:60px;height:60px;display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:999;}
+    .music-player img{width:30px;height:30px}
+  </style>
+</head>
+<body>
+  <div class="card" id="card">
+    <div class="left">
+      <div class="logo">
+        <img src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?q=80&w=400&auto=format&fit=crop" alt="logo">
+        <div>
+          <div style="font-weight:700;font-size:18px">XV Años - Valentina</div>
+          <div style="font-size:14px;color:var(--muted)">Sábado, 18 de octubre · 7:00 PM · Salón Aurora</div>
+        </div>
+      </div>
+
+      <h1>Estás invitado a mis XV años</h1>
+      <p class="subtitle">Me encantaría que compartieras este día tan especial conmigo. Por favor confirma tu asistencia.</p>
+
+      <div class="details">
+        <div class="pill">Fecha: 18 Oct 2025</div>
+        <div class="pill">Hora: 7:00 PM</div>
+        <div class="pill">Lugar: Salón Aurora</div>
+      </div>
+
+      <div class="gallery" id="gallery">
+        <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=800&auto=format&fit=crop" alt="foto1" class="selected">
+        <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=800&auto=format&fit=crop" alt="foto2">
+        <img src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?q=80&w=800&auto=format&fit=crop" alt="foto3">
+      </div>
+
+      <div class="cta">
+        <button class="btn btn-accept" id="acceptBtn">✨ Aceptar invitación</button>
+        <button class="btn btn-decline" id="declineBtn">Rechazar</button>
+      </div>
+
+      <div style="margin-top:20px;color:var(--muted);font-size:15px">¿Prefieres escribir un mensaje personal? Envía tu respuesta por WhatsApp desde aquí:</div>
+      <div class="form-row">
+        <input type="text" id="customMsg" class="input" placeholder="Ej: Sí, asistiré con 2 invitados">
+        <button class="small-btn" id="sendCustom">Enviar</button>
+      </div>
+
+    </div>
+
+    <div class="right">
+      <div class="hero"><img id="heroImg" src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=800&auto=format&fit=crop" alt="valentina"></div>
+      <div style="font-size:22px;font-weight:700;color:#222">Valentina García</div>
+      <div class="rsvp">Confirmados: <span id="rsvpCount">0</span></div>
+      <div class="note">Haz clic en "Aceptar invitación" para confirmar vía WhatsApp. Tu respuesta llegará directamente al anfitrión.</div>
+    </div>
+  </div>
+
+  <footer>Invitación digital • Diseñada con ❤️</footer>
+
+  <!-- Música -->
+  <audio id="bgMusic" loop>
+    <source src="https://www.bensound.com/bensound-music/bensound-sunny.mp3" type="audio/mpeg">
+  </audio>
+  <div class="music-player" id="musicBtn">
+    <img src="https://cdn-icons-png.flaticon.com/512/727/727240.png" alt="music">
+  </div>
+
+  <script>
+    const PHONE_NUMBER = '51987654321'; // cambia este número al anfitrión
+    const DEFAULT_MESSAGE = encodeURIComponent('Hola! Confirmo mi asistencia a los XV años de Valentina. ¡Gracias por la invitación!');
+
+    const acceptBtn = document.getElementById('acceptBtn');
+    const declineBtn = document.getElementById('declineBtn');
+    const sendCustom = document.getElementById('sendCustom');
+    const customMsg = document.getElementById('customMsg');
+    const rsvpCountEl = document.getElementById('rsvpCount');
+    const gallery = document.getElementById('gallery');
+    const heroImg = document.getElementById('heroImg');
+    const musicBtn = document.getElementById('musicBtn');
+    const bgMusic = document.getElementById('bgMusic');
+
+    function incrementLocalRSVP(){
+      let n = parseInt(localStorage.getItem('rsvp_local') || '0');
+      n = n + 1;
+      localStorage.setItem('rsvp_local', n);
+      rsvpCountEl.textContent = n;
+    }
+    rsvpCountEl.textContent = localStorage.getItem('rsvp_local') || '0';
+
+    acceptBtn.addEventListener('click', ()=>{
+      incrementLocalRSVP();
+      const url = `https://wa.me/${PHONE_NUMBER}?text=${DEFAULT_MESSAGE}`;
+      window.open(url, '_blank');
+    });
+
+    declineBtn.addEventListener('click', ()=>{
+      alert('Sentimos que no puedas asistir. Gracias por avisar.');
+    });
+
+    sendCustom.addEventListener('click', ()=>{
+      const text = customMsg.value.trim();
+      if(!text){ alert('Escribe un mensaje antes de enviar.'); return; }
+      const url = `https://wa.me/${PHONE_NUMBER}?text=${encodeURIComponent(text)}`;
+      window.open(url, '_blank');
+    });
+
+    gallery.addEventListener('click', (e)=>{
+      if(e.target.tagName !== 'IMG') return;
+      const imgs = gallery.querySelectorAll('img');
+      imgs.forEach(i=>i.classList.remove('selected'));
+      e.target.classList.add('selected');
+      heroImg.src = e.target.src;
+    });
+
+    // Control de música
+    let playing = false;
+    musicBtn.addEventListener('click', ()=>{
+      if(playing){
+        bgMusic.pause();
+        playing=false;
+      }else{
+        bgMusic.play();
+        playing=true;
+      }
+    });
+  </script>
+</body>
+</html>
